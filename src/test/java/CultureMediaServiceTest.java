@@ -21,7 +21,7 @@ class CultureMediaServiceTest {
     private Video exampleVideo3 = new Video("03", "Title 3", "Hello, this is a new video to.....", 4.4);
     private Video exampleVideo4 = new Video("04", "Title 4", "Hello, this is a new video to.....", 3.5);
     private Video exampleVideo5 = new Video("05", "Title 5", "Hello, this is a new video to.....", 5.7);
-    private Video exampleVideo6 = new Video("06", "Title 6", "Hello, this is a new video to.....", 5.1);
+    private Video exampleVideo6 = new Video("06", "Hilmer Chona", "Hello, this is a new video to.....", 5.1);
 
     @BeforeEach
     void init() {
@@ -59,4 +59,66 @@ class CultureMediaServiceTest {
             assert(false);
         }
     }
+
+    @Test
+    void when_find_forTitle_an_VideoNotFoundExeption_should_be_thrown_successfully() {
+        assertThrows(VideoNotFoundExeption.class, () -> {
+            cultureMediaService.find("any Thing");
+        });
+    }
+
+    @Test 
+    void when_find_forDuration_an_VideoNotFoundExeption_should_be_thrown_successfully() {
+        assertThrows(VideoNotFoundExeption.class, () -> {
+            cultureMediaService.find(0.0, 0.5);
+        });
+    }
+
+    @Test
+    void when_find_forTitle_should_be_returned_succesfully() {
+        List<Video> videos = List.of(
+            exampleVideo1,
+            exampleVideo2,
+            exampleVideo3,
+            exampleVideo4,
+            exampleVideo5,
+            exampleVideo6
+        );
+        
+        for ( Video video : videos ) {
+            cultureMediaService.add( video );
+        }
+
+        try {
+            List<Video> Videos = cultureMediaService.find("Hilmer");
+            assertEquals(1, Videos.size());
+            assertEquals(exampleVideo6, Videos.get(0));
+        } catch (VideoNotFoundExeption e) {
+            assert(false);
+        }    
+    }
+
+    @Test
+    void when_find_forDuration_should_be_returned_succesfully() {
+        List<Video> videos = List.of(
+            exampleVideo1,
+            exampleVideo2,
+            exampleVideo3,
+            exampleVideo4,
+            exampleVideo5,
+            exampleVideo6
+        );
+        
+        for ( Video video : videos ) {
+            cultureMediaService.add( video );
+        }
+
+        try {
+            List<Video> Videos = cultureMediaService.find(0.0, 5.5);
+            assertEquals(5, Videos.size());
+        } catch (VideoNotFoundExeption e) {
+            assert(false);
+        }
+    }
+    
 }
