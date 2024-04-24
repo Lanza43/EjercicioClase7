@@ -7,7 +7,7 @@ import java.util.List;
 
 import culturemedia.service.CultureMediaService;
 import culturemedia.service.impl.CultureMediaServiceImpl;
-import culturemedia.exception.VideoNotFoundExeption;
+import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.repository.*;
 import culturemedia.repository.impl.*;
@@ -32,7 +32,7 @@ class CultureMediaServiceTest {
 
     @Test
     void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() {
-        assertThrows(VideoNotFoundExeption.class, () -> {
+        assertThrows(VideoNotFoundException.class, () -> {
             cultureMediaService.findAllVideos();
         });
     }
@@ -55,21 +55,21 @@ class CultureMediaServiceTest {
         try {
             List<Video> Videos = cultureMediaService.findAllVideos();
             assertEquals(6, Videos.size());
-        } catch (VideoNotFoundExeption e) {
+        } catch (VideoNotFoundException e) {
             assert(false);
         }
     }
 
     @Test
     void when_find_forTitle_an_VideoNotFoundExeption_should_be_thrown_successfully() {
-        assertThrows(VideoNotFoundExeption.class, () -> {
+        assertThrows(VideoNotFoundException.class, () -> {
             cultureMediaService.find("any Thing");
         });
     }
 
     @Test 
     void when_find_forDuration_an_VideoNotFoundExeption_should_be_thrown_successfully() {
-        assertThrows(VideoNotFoundExeption.class, () -> {
+        assertThrows(VideoNotFoundException.class, () -> {
             cultureMediaService.find(0.0, 0.5);
         });
     }
@@ -93,7 +93,7 @@ class CultureMediaServiceTest {
             List<Video> Videos = cultureMediaService.find("Hilmer");
             assertEquals(1, Videos.size());
             assertEquals(exampleVideo6, Videos.get(0));
-        } catch (VideoNotFoundExeption e) {
+        } catch (VideoNotFoundException e) {
             assert(false);
         }    
     }
@@ -116,7 +116,7 @@ class CultureMediaServiceTest {
         try {
             List<Video> Videos = cultureMediaService.find(0.0, 5.5);
             assertEquals(5, Videos.size());
-        } catch (VideoNotFoundExeption e) {
+        } catch (VideoNotFoundException e) {
             assert(false);
         }
     }
