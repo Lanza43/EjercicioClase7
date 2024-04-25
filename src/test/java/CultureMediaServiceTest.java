@@ -76,12 +76,7 @@ class CultureMediaServiceTest {
     @Test
     void when_find_forTitle_should_be_returned_succesfully() throws VideoNotFoundException{
 
-        mockVideoRepositoryFind("Hilmer", List.of(
-            exampleVideo1,
-            exampleVideo2,
-            exampleVideo3,
-            exampleVideo4,
-            exampleVideo6));
+        mockVideoRepositoryFind("Hilmer", List.of(exampleVideo6));
 
         List<Video> videos = cultureMediaService.find("Hilmer");
         assertEquals(1, videos.size());
@@ -91,7 +86,7 @@ class CultureMediaServiceTest {
     @Test
     void when_find_forDuration_should_be_returned_succesfully() throws VideoNotFoundException{
 
-        mockVideoRepositoryFind(0.0, 0.0, List.of(
+        mockVideoRepositoryFind(0.0, 5.5, List.of(
             exampleVideo1,
             exampleVideo2,
             exampleVideo3,
