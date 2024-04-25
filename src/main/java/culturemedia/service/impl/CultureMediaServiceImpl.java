@@ -7,7 +7,7 @@ import culturemedia.model.View;
 import culturemedia.service.CultureMediaService;
 import culturemedia.repository.VideoRepository;
 import culturemedia.repository.ViewsRepository;
-import culturemedia.exception.VideoNotFoundExeption;
+import culturemedia.exception.VideoNotFoundException;
 
 public class CultureMediaServiceImpl implements CultureMediaService{
     private VideoRepository videoRepository;
@@ -31,10 +31,10 @@ public class CultureMediaServiceImpl implements CultureMediaService{
     }
 
     @Override
-    public List<Video> findAllVideos() throws VideoNotFoundExeption {
+    public List<Video> findAllVideos() throws VideoNotFoundException {
         List<Video> videos = videoRepository.findAll();
         if(videos.isEmpty()){
-            throw new VideoNotFoundExeption();
+            throw new VideoNotFoundException();
         }
         else{
             return videos;
@@ -42,10 +42,10 @@ public class CultureMediaServiceImpl implements CultureMediaService{
     }
 
     @Override
-    public List<Video> find(String title) throws VideoNotFoundExeption {
+    public List<Video> find(String title) throws VideoNotFoundException {
         List<Video> videos = videoRepository.find(title);
         if(videos.isEmpty()){
-            throw new VideoNotFoundExeption();
+            throw new VideoNotFoundException();
         }
         else{
             return videos;
@@ -53,10 +53,10 @@ public class CultureMediaServiceImpl implements CultureMediaService{
     }
 
     @Override
-    public List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundExeption {
+    public List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundException {
         List<Video> videos = videoRepository.find(fromDuration, toDuration);
         if(videos.isEmpty()){
-            throw new VideoNotFoundExeption();
+            throw new VideoNotFoundException();
         }
         else{
             return videos;
